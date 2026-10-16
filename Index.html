@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Kilat - Akun & Sesi Login</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --danger: #ef4444;
+            --success: #16a34a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        header { text-align: center; margin-bottom: 24px; }
+        header h1 { font-size: 1.5rem; color: #0f172a; margin-bottom: 4px; }
+        header p { color: #64748b; font-size: 0.9rem; }
+
+        .nav-tabs {
+            display: flex; background: #e2e8f0; border-radius: 8px; padding: 4px; margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1; padding: 10px; border: none; background: transparent; font-weight: 600; font-size: 0.9rem; cursor: pointer; border-radius: 6px; color: #475569;
+        }
+        .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        .section-view { display: none; }
+        .section-view.active { display: block; }
+
+        .card {
+            background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 20px; margin-bottom: 20px; border: 1px solid var(--border-color);
+        }
+
+        .form-group { margin-bottom: 14px; display: flex; flex-direction: column; }
+        label { font-weight: 600; font-size: 0.85rem; margin-bottom: 6px; color: #475569; }
+        input, textarea, select {
+            padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; outline: none;
+        }
+        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+
+        button.btn-main {
+            background-color: var(--primary); color: white; padding: 11px 16px; border: none; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer;
+        }
+        button.btn-main:hover { background-color: var(--primary-hover); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+        .product-card { background: white; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; background: #f1f5f9; }
+        .product-title { font-weight: bold; font-size: 1rem; margin-bottom: 4px; }
+        .product-seller { font-size: 0.8rem; color: #64748b; margin-bottom: 8px; }
+        .product-price { color: var(--success); font-weight: bold; margin-bottom: 10px; }
+        
+        .btn-cart { background-color: #0ea5e9; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+        .summary-box { background: #f8fafc; padding: 14px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .summary-total { font-weight: bold; font-size: 1.05rem; border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px; }
+        .badge-login { background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>⚡ Marketplace Kilat Subuh</h1>
+            <p>Belanja Cepat & Sistem Akun Profil</p>
+        </header>
+
+        <!-- Navigasi Peran -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('pembeli')">🛒 Pembeli</button>
+            <button class="tab-btn" onclick="switchTab('penjual')">📦 Penjual (Profil/Upload)</button>
+            <button class="tab-btn" onclick="switchTab('kurir')">🛵 Kurir (Profil/Status)</button>
+        </div>
+
+        <!-- 1. HALAMAN PEMBELI -->
+        <div id="view-pembeli" class="section-view active">
+            <div class="card">
+                <h3>Etalase Produk Tersedia</h3>
+                <div id="loadingProduk" style="color: #64748b; font-style: italic;">Memuat produk...</div>
+                <div id="productContainer" class="product-grid"></div>
+            </div>
+
+            <div class="card">
+                <h3>Keranjang Belanja & Checkout</h3>
+                <div id="cartItemsList"><p style="color: #64748b; font-size: 0.9rem;">Keranjang masih kosong.</p></div>
+                
+                <div id="checkoutArea" style="display: none;">
+                    <div class="summary-box">
+                        <div class="summary-row"><span>Jumlah Penjual Unik:</span> <span id="uniqueSellersCount">0</span></div>
+                        <div class="summary-row"><span>Estimasi Ongkir:</span> <span id="calcOngkir">Rp 0</span></div>
+                        <div class="summary-row summary-total"><span>Total Belanja + Ongkir:</span> <span id="calcTotal">Rp 0</span></div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label for="selectKurir">Pilih Kurir yang Online:</label>
+                        <select id="selectKurir"><option value="">Memuat kurir online...</option></select>
+                    </div>
+
+                    <button class="btn-main" style="background-color: var(--success);" onclick="checkoutWhatsApp()">Checkout via WhatsApp Kurir 🚀</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. HALAMAN PENJUAL -->
+        <div id="view-penjual" class="section-view">
+            <!-- Form Login / Register Penjual -->
+            <div id="penjualAuthCard" class="card">
+                <h3 id="authTitlePenjual">Login Akun Penjual</h3>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="authUsernamePenjual" placeholder="nama_toko">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPasswordPenjual" placeholder="••••••••">
+                </div>
+                <div id="registerExtraPenjual" style="display:none;">
+                    <div class="form-group">
+                        <label>Nama Toko / Lengkap</label>
+                        <input type="text" id="regNamaPenjual" placeholder="Toko Berkah Jaya">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor WhatsApp (Kontak)</label>
+                        <input type="text" id="regWaPenjual" placeholder="08xxxxxxxxxx">
+                    </div>
+                </div>
+                <button class="btn-main" id="authBtnPenjual" onclick="prosesAuthPenjual('login')">Masuk</button>
+                <p style="margin-top: 12px; font-size: 0.85rem; text-align: center;">
+                    <span id="authToggleTextPenjual">Belum punya akun?</span> 
+                    <a href="#" onclick="toggleAuthModePenjual()" style="color: var(--primary); font-weight: bold;">Daftar di sini</a>
+                </p>
+                <p id="statusAuthPenjual" style="margin-top: 8px; font-weight: 500; font-size: 0.85rem; text-align: center;"></p>
+            </div>
+
+            <!-- Dashboard Penjual (Muncul Jika Sudah Login) -->
+            <div id="penjualDashboardCard" class="card" style="display:none;">
+                <div class="badge-login" id="badgeLoginPenjual">Login sebagai: -</div>
+                <button onclick="logoutPenjual()" style="float: right; background: var(--danger); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Keluar (Logout)</button>
+                <h3 style="clear: both; margin-top: 10px;">Upload Barang Dagangan</h3>
+                
+                <form id="formPenjual">
+                    <div class="form-group">
+                        <label>Nama Barang</label>
+                        <input type="text" id="NamaBarang" required placeholder="Contoh: Nasi Lemak Spesial">
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi Singkat</label>
+                        <textarea id="Deskripsi" rows="2" required placeholder="Hangat, sedap, porsi mantap"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga (Rp)</label>
+                        <input type="number" id="Harga" required placeholder="15000">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Produk (Maks 2MB)</label>
+                        <input type="file" id="fileFoto" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn-main" id="btnUpload">Upload Produk Sekarang</button>
+                    <p id="statusPenjual" style="margin-top: 10px; font-weight: 500; font-size: 0.9rem;"></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- 3. HALAMAN KURIR -->
+        <div id="view-kurir" class="section-view">
+            <!-- Form Login / Register Kurir -->
+            <div id="kurirAuthCard" class="card">
+                <h3 id="authTitleKurir">Login Akun Kurir</h3>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="authUsernameKurir" placeholder="kurir_keren">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPasswordKurir" placeholder="••••••••">
+                </div>
+                <div id="registerExtraKurir" style="display:none;">
+                    <div class="form-group">
+                        <label>Nama Lengkap Kurir</label>
+                        <input type="text" id="regNamaKurir" placeholder="Budi Kurir">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor WhatsApp Kurir (Pure Angka)</label>
+                        <input type="text" id="regWaKurir" placeholder="08522345xxxx">
+                    </div>
+                </div>
+                <button class="btn-main" style="background-color: #0284c7;" id="authBtnKurir" onclick="prosesAuthKurir('login')">Masuk Kurir</button>
+                <p style="margin-top: 12px; font-size: 0.85rem; text-align: center;">
+                    <span id="authToggleTextKurir">Belum punya akun kurir?</span> 
+                    <a href="#" onclick="toggleAuthModeKurir()" style="color: #0284c7; font-weight: bold;">Daftar di sini</a>
+                </p>
+                <p id="statusAuthKurir" style="margin-top: 8px; font-weight: 500; font-size: 0.85rem; text-align: center;"></p>
+            </div>
+
+            <!-- Dashboard Kurir (Muncul Jika Sudah Login) -->
+            <div id="kurirDashboardCard" class="card" style="display:none;">
+                <div class="badge-login" id="badgeLoginKurir">Kurir: -</div>
+                <button onclick="logoutKurir()" style="float: right; background: var(--danger); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Keluar (Logout)</button>
+                <h3 style="clear: both; margin-top: 10px;">Pengaturan Status Ketersediaan</h3>
+
+                <form id="formKurirStatus">
+                    <div class="form-group">
+                        <label>Ubah Status Anda</label>
+                        <select id="KurirStatusSelect">
+                            <option value="Online">Online (Siap Menerima Order)</option>
+                            <option value="Sedang Mengirim">Sedang Mengirim Pesanan</option>
+                            <option value="Offline">Offline (Istirahat)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-main" style="background-color: var(--success);">Perbarui Status</button>
+                    <p id="statusKurirUpdate" style="margin-top: 10px; font-weight: 500; font-size: 0.9rem;"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbyNY7vvvwBrp-82XhKZUkZML0FOLsbFuLUYA501zVluTpVZmvbje90EpUIoMr7ODQSw/exec";
+        let cart = [];
+        let allProducts = [];
+        let isRegisterModePenjual = false;
+        let isRegisterModeKurir = false;
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
+            
+            if(tab === 'pembeli') {
+                event.currentTarget.classList.add('active');
+                document.getElementById('view-pembeli').classList.add('active');
+                loadProduk();
+                loadKurirOnline();
+            } else if(tab === 'penjual') {
+                event.currentTarget.classList.add('active');
+                document.getElementById('view-penjual').classList.add('active');
+                cekSesiPenjual();
+            } else if(tab === 'kurir') {
+                event.currentTarget.classList.add('active');
+                document.getElementById('view-kurir').classList.add('active');
+                cekSesiKurir();
+            }
+        }
+
+        // --- MANAJEMEN SESI PENJUAL (LOCALSTORAGE) ---
+        function cekSesiPenjual() {
+            let savedUser = localStorage.getItem('penjual_user');
+            if (savedUser) {
+                let userObj = JSON.parse(savedUser);
+                document.getElementById('penjualAuthCard').style.display = "none";
+                document.getElementById('penjualDashboardCard').style.display = "block";
+                document.getElementById('badgeLoginPenjual').innerText = "Toko: " + userObj.NamaLengkap + " (" + userObj.Username + ")";
+                window.currentUserPenjual = userObj;
+            } else {
+                document.getElementById('penjualAuthCard').style.display = "block";
+                document.getElementById('penjualDashboardCard').style.display = "none";
+            }
+        }
+
+        function toggleAuthModePenjual() {
+            isRegisterModePenjual = !isRegisterModePenjual;
+            if (isRegisterModePenjual) {
+                document.getElementById('authTitlePenjual').innerText = "Daftar Akun Penjual Baru";
+                document.getElementById('registerExtraPenjual').style.display = "block";
+                document.getElementById('authBtnPenjual').innerText = "Daftar Sekarang";
+                document.getElementById('authToggleTextPenjual').innerText = "Sudah punya akun?";
+            } else {
+                document.getElementById('authTitlePenjual').innerText = "Login Akun Penjual";
+                document.getElementById('registerExtraPenjual').style.display = "none";
+                document.getElementById('authBtnPenjual').innerText = "Masuk";
+                document.getElementById('authToggleTextPenjual').innerText = "Belum punya akun?";
+            }
+        }
+
+        async function prosesAuthPenjual(modeDefault) {
+            let username = document.getElementById('authUsernamePenjual').value.trim();
+            let password = document.getElementById('authPasswordPenjual').value.trim();
+            let status = document.getElementById('statusAuthPenjual');
+
+            if(!username || !password) { alert("Username dan Password wajib diisi!"); return; }
+
+            let mode = isRegisterModePenjual ? "register" : "login";
+            let url = `${API_URL}?action=auth&role=penjual&mode=${mode}&username=${username}&password=${password}`;
+
+            if (isRegisterModePenjual) {
+                let nama = document.getElementById('regNamaPenjual').value.trim();
+                let wa = document.getElementById('regWaPenjual').value.trim();
+                if(!nama || !wa) { alert("Nama toko dan nomor WA wajib diisi!"); return; }
+                url += `&nama=${encodeURIComponent(nama)}&wa=${encodeURIComponent(wa)}`;
+            }
+
+            status.innerText = "Memproses...";
+            try {
+                let res = await fetch(url);
+                let result = await res.json();
+
+                if (result.status === "success") {
+                    if (mode === "register") {
+                        alert("Pendaftaran berhasil! Silakan login.");
+                        toggleAuthModePenjual();
+                        status.innerText = "";
+                    } else {
+                        localStorage.setItem('penjual_user', JSON.stringify(result.data));
+                        cekSesiPenjual();
+                    }
+                } else {
+                    status.innerText = result.message;
+                    status.style.color = "var(--danger)";
+                }
+            } catch(e) {
+                status.innerText = "Gagal terhubung ke server.";
+            }
+        }
+
+        function logoutPenjual() {
+            localStorage.removeItem('penjual_user');
+            cekSesiPenjual();
+        }
+
+
+        // --- MANAJEMEN SESI KURIR (LOCALSTORAGE) ---
+        function cekSesiKurir() {
+            let savedKurir = localStorage.getItem('kurir_user');
+            if (savedKurir) {
+                let kurirObj = JSON.parse(savedKurir);
+                document.getElementById('kurirAuthCard').style.display = "none";
+                document.getElementById('kurirDashboardCard').style.display = "block";
+                document.getElementById('badgeLoginKurir').innerText = "Kurir: " + kurirObj.NamaLengkap;
+                document.getElementById('KurirStatusSelect').value = kurirObj.Status || "Online";
+                window.currentKurirObj = kurirObj;
+            } else {
+                document.getElementById('kurirAuthCard').style.display = "block";
+                document.getElementById('kurirDashboardCard').style.display = "none";
+            }
+        }
+
+        function toggleAuthModeKurir() {
+            isRegisterModeKurir = !isRegisterModeKurir;
+            if (isRegisterModeKurir) {
+                document.getElementById('authTitleKurir').innerText = "Daftar Akun Kurir Baru";
+                document.getElementById('registerExtraKurir').style.display = "block";
+                document.getElementById('authBtnKurir').innerText = "Daftar Kurir";
+                document.getElementById('authToggleTextKurir').innerText = "Sudah punya akun?";
+            } else {
+                document.getElementById('authTitleKurir').innerText = "Login Akun Kurir";
+                document.getElementById('registerExtraKurir').style.display = "none";
+                document.getElementById('authBtnKurir').innerText = "Masuk Kurir";
+                document.getElementById('authToggleTextKurir').innerText = "Belum punya akun?";
+            }
+        }
+
+        async function prosesAuthKurir() {
+            let username = document.getElementById('authUsernameKurir').value.trim();
+            let password = document.getElementById('authPasswordKurir').value.trim();
+            let status = document.getElementById('statusAuthKurir');
+
+            if(!username || !password) { alert("Username dan Password wajib diisi!"); return; }
+
+            let mode = isRegisterModeKurir ? "register" : "login";
+            let url = `${API_URL}?action=auth&role=kurir&mode=${mode}&username=${username}&password=${password}`;
+
+            if (isRegisterModeKurir) {
+                let nama = document.getElementById('regNamaKurir').value.trim();
+                let wa = document.getElementById('regWaKurir').value.trim();
+                if(!nama || !wa) { alert("Nama dan nomor WA wajib diisi!"); return; }
+                url += `&nama=${encodeURIComponent(nama)}&wa=${encodeURIComponent(wa)}`;
+            }
+
+            status.innerText = "Memproses...";
+            try {
+                let res = await fetch(url);
+                let result = await res.json();
+
+                if (result.status === "success") {
+                    if (mode === "register") {
+                        alert("Pendaftaran kurir berhasil! Silakan login.");
+                        toggleAuthModeKurir();
+                        status.innerText = "";
+                    } else {
+                        localStorage.setItem('kurir_user', JSON.stringify(result.data));
+                        cekSesiKurir();
+                    }
+                } else {
+                    status.innerText = result.message;
+                    status.style.color = "var(--danger)";
+                }
+            } catch(e) {
+                status.innerText = "Gagal terhubung ke server.";
+            }
+        }
+
+        function logoutKurir() {
+            localStorage.removeItem('kurir_user');
+            cekSesiKurir();
+        }
+
+
+        // --- LOAD PRODUK & KURIR ONLINE ---
+        async function loadProduk() {
+            try {
+                let res = await fetch(API_URL + "?action=produk");
+                allProducts = await res.json();
+                let container = document.getElementById('productContainer');
+                document.getElementById('loadingProduk').style.display = 'none';
+                container.innerHTML = "";
+
+                if(allProducts.length === 0) {
+                    container.innerHTML = "<p style='color:#64748b;'>Belum ada produk atau sudah ter-reset subuh tadi.</p>";
+                    return;
+                }
+
+                allProducts.forEach((p, index) => {
+                    container.innerHTML += `
+                        <div class="product-card">
+                            <div>
+                                <img src="${p.Foto || 'https://via.placeholder.com/150'}" alt="Foto Barang">
+                                <div class="product-title">${p.NamaBarang}</div>
+                                <div class="product-seller">Penjual: <b>${p.NamaPenjual}</b></div>
+                                <div style="font-size: 0.85rem; color: #475569; margin-bottom: 6px;">${p.Deskripsi}</div>
+                            </div>
+                            <div>
+                                <div class="product-price">Rp ${parseInt(p.Harga).toLocaleString()}</div>
+                                <button class="btn-cart" onclick="addToCart(${index})">+ Masukkan Keranjang</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch(e) {
+                document.getElementById('loadingProduk').innerText = "Gagal memuat produk.";
+            }
+        }
+
+        async function loadKurirOnline() {
+            try {
+                let res = await fetch(API_URL + "?action=kurir");
+                let kurirs = await res.json();
+                let select = document.getElementById('selectKurir');
+                select.innerHTML = "<option value=''>-- Pilih Kurir --</option>";
+                
+                kurirs.forEach(k => {
+                    if(k.Status === "Online") {
+                        select.innerHTML += `<option value="${k.KontakWA}">${k.NamaLengkap} (Online)</option>`;
+                    }
+                });
+            } catch(e) { console.error("Gagal load kurir"); }
+        }
+
+        // --- KERANJANG & CHECKOUT ---
+        function addToCart(index) {
+            cart.push(allProducts[index]);
+            renderCart();
+            alert("Barang dimasukkan ke keranjang!");
+        }
+
+        function renderCart() {
+            let list = document.getElementById('cartItemsList');
+            let checkoutArea = document.getElementById('checkoutArea');
+            if(cart.length === 0) {
+                list.innerHTML = "<p style='color: #64748b; font-size: 0.9rem;'>Keranjang masih kosong.</p>";
+                checkoutArea.style.display = "none";
+                return;
+            }
+            checkoutArea.style.display = "block";
+            list.innerHTML = "";
+            let uniqueSellers = new Set();
+            let totalBelanja = 0;
+
+            cart.forEach((item, idx) => {
+                uniqueSellers.add(item.NamaPenjual);
+                totalBelanja += parseInt(item.Harga);
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <div><b>${item.NamaBarang}</b> (${item.NamaPenjual})<br><small>Rp ${parseInt(item.Harga).toLocaleString()}</small></div>
+                        <button onclick="removeFromCart(${idx})" style="background:var(--danger); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Hapus</button>
+                    </div>
+                `;
+            });
+
+            let ongkir = uniqueSellers.size > 0 ? 10000 + ((uniqueSellers.size - 1) * 5000) : 0;
+            document.getElementById('uniqueSellersCount').innerText = uniqueSellers.size + " Penjual";
+            document.getElementById('calcOngkir').innerText = "Rp " + ongkir.toLocaleString();
+            document.getElementById('calcTotal').innerText = "Rp " + (totalBelanja + ongkir).toLocaleString();
+        }
+
+        function removeFromCart(idx) { cart.splice(idx, 1); renderCart(); }
+
+        function checkoutWhatsApp() {
+            let kurirNoWA = document.getElementById('selectKurir').value;
+            if(!kurirNoWA) { alert("Silakan pilih kurir online!"); return; }
+
+            let uniqueSellers = new Set();
+            let totalBelanja = 0;
+            let detailPesanan = "";
+
+            cart.forEach((item, i) => {
+                uniqueSellers.add(item.NamaPenjual);
+                totalBelanja += parseInt(item.Harga);
+                detailPesanan += `${i+1}. ${item.NamaBarang} - Rp ${parseInt(item.Harga).toLocaleString()} (${item.NamaPenjual})\n`;
+            });
+
+            let ongkir = 10000 + ((uniqueSellers.size - 1) * 5000);
+            let totalSemua = totalBelanja + ongkir;
+
+            let pesan = `Halo Bang Kurir, pesanan saya:\n\n${detailPesanan}\nTotal Harga: Rp ${totalBelanja.toLocaleString()}\nOngkir: Rp ${ongkir.toLocaleString()}\nTOTAL: Rp ${totalSemua.toLocaleString()}`;
+            window.open(`https://wa.me/${kurirNoWA}?text=${encodeURIComponent(pesan)}`, '_blank');
+        }
+
+        // --- UPLOAD PRODUK ---
+        document.getElementById('formPenjual').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let btn = document.getElementById('btnUpload');
+            let status = document.getElementById('statusPenjual');
+            let fileInput = document.getElementById('fileFoto');
+
+            btn.disabled = true;
+            status.innerText = "Mengupload produk...";
+
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function() {
+                let payload = {
+                    role: "penjual_produk",
+                    NamaPenjual: window.currentUserPenjual.NamaLengkap,
+                    KontakPenjual: window.currentUserPenjual.KontakWA,
+                    NamaBarang: document.getElementById('NamaBarang').value,
+                    Deskripsi: document.getElementById('Deskripsi').value,
+                    Harga: document.getElementById('Harga').value,
+                    fileData: reader.result,
+                    fileName: file.name,
+                    fileMimeType: file.type
+                };
+
+                await fetch(API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                status.innerText = "Produk berhasil di-upload!";
+                document.getElementById('NamaBarang').value = "";
+                document.getElementById('Deskripsi').value = "";
+                document.getElementById('Harga').value = "";
+                fileInput.value = "";
+                btn.disabled = false;
+                setTimeout(() => { status.innerText = ""; }, 2000);
+            };
+        });
+
+        // --- UPDATE STATUS KURIR ---
+        document.getElementById('formKurirStatus').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let status = document.getElementById('statusKurirUpdate');
+            status.innerText = "Menyimpan status...";
+
+            let payload = {
+                role: "update_kurir_status",
+                username: window.currentKurirObj.Username,
+                status: document.getElementById('KurirStatusSelect').value
+            };
+
+            await fetch(API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            status.innerText = "Status berhasil diperbarui!";
+            
+            // Perbarui local storage juga
+            window.currentKurirObj.Status = document.getElementById('KurirStatusSelect').value;
+            localStorage.setItem('kurir_user', JSON.stringify(window.currentKurirObj));
+
+            setTimeout(() => { status.innerText = ""; }, 2000);
+        });
+
+        loadProduk();
+    </script>
+</body>
+</html>
