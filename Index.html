@@ -3,255 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi Karyawan Lagota</title>
+    <title>Aura Cafe & Restaurant - Menu</title>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --bg-color: #f4f7f6;
+            --bg-color: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-color: #C5A059; /* Warm Gold / Bronze Accent */
+            --border-color: #EAEAEA;
+            --transition: all 0.3s ease;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+
+        * {
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
         }
-        h2 {
+
+        /* Header / Hero Section */
+        header {
             text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 25px;
+            padding: 60px 20px 40px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
         }
-        .form-group {
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Filter Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--text-primary);
+            color: #FFFFFF;
+            border-color: var(--text-primary);
+        }
+
+        /* Menu Section Layout */
+        .menu-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
             margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
-        label {
-            display: block;
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Menu Item Card */
+        .menu-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 8px;
+        }
+
+        .item-name {
+            font-size: 1.05rem;
             font-weight: 600;
         }
-        input, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: var(--accent-color);
+            font-weight: 600;
         }
-        .camera-box {
+
+        .item-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
             text-align: center;
-            background: #000;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 10px;
-        }
-        video, canvas {
-            width: 100%;
-            max-height: 300px;
-            display: block;
-            object-fit: cover;
-        }
-        canvas { display: none; }
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .btn:hover { background-color: #219653; }
-        .btn-camera {
-            background-color: #2980b9;
-            margin-bottom: 10px;
-        }
-        .btn-camera:hover { background-color: #1f618d; }
-        .info-realtime {
-            background: #eaf2f8;
-            border: 1px solid #a4b0be;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #2c3e50;
-        }
-        #loading {
-            display: none;
-            text-align: center;
-            margin-top: 10px;
-            color: #e67e22;
-            font-weight: bold;
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Absensi Lagota</h2>
-    <form id="absensiForm">
-        <div class="form-group">
-            <label for="nama">Nama Karyawan:</label>
-            <input type="text" id="nama" required placeholder="Masukkan nama lengkap">
+    <header>
+        <h1>Aura Cafe & Restaurant</h1>
+        <p>Artisan Coffee & Modern Dining</p>
+    </header>
+
+    <div class="container">
+        <!-- Kategori Filter -->
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterMenu('all')">Semua Menu</button>
+            <button class="cat-btn" onclick="filterMenu('coffee')">Kopi</button>
+            <button class="cat-btn" onclick="filterMenu('main')">Makanan Utama</button>
+            <button class="cat-btn" onclick="filterMenu('dessert')">Makanan Penutup</button>
         </div>
 
-        <div class="form-group">
-            <label for="posisi">Posisi:</label>
-            <select id="posisi" required>
-                <option value="">-- Pilih Posisi --</option>
-                <option value="Leader">Leader</option>
-                <option value="Waiter">Waiter</option>
-                <option value="Kitchen">Kitchen</option>
-                <option value="Bar">Bar</option>
-                <option value="Lain-lain">Lain-lain</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="tipeAbsen">Tipe Absen:</label>
-            <select id="tipeAbsen" required>
-                <option value="">-- Pilih Masuk / Pulang --</option>
-                <option value="Masuk">Masuk</option>
-                <option value="Pulang">Pulang</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="shift">Shift / Jenis Kerja:</label>
-            <select id="shift" required>
-                <option value="">-- Pilih Shift --</option>
-                <option value="Shift 1">Shift 1</option>
-                <option value="Shift 2">Shift 2</option>
-                <option value="Lembur">Lembur</option>
-            </select>
-        </div>
-
-        <div class="info-realtime">
-            <strong>Waktu Saat Ini (Otomatis):</strong> <span id="waktuLive">-</span>
-        </div>
-
-        <div class="form-group">
-            <label>Foto Langsung (Live Camera):</label>
-            <div class="camera-box">
-                <video id="video" autoplay playsinline></video>
-                <canvas id="canvas"></canvas>
-                <img id="photoResult" style="width:100%; display:none;" alt="Hasil Foto">
+        <!-- Daftar Menu -->
+        <div id="menu-container">
+            
+            <!-- Kategori: Kopi -->
+            <div class="menu-section" data-category="coffee">
+                <h2 class="section-title">Coffee & Beverages</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Caffè Latte</span>
+                                <span class="item-price">Rp 38.000</span>
+                            </div>
+                            <div class="item-desc">Espresso segar dengan steamed milk lembut dan lapisan foam tipis.</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Caramel Macchiato</span>
+                                <span class="item-price">Rp 45.000</span>
+                            </div>
+                            <div class="item-desc">Vanila, susu segar, espresso, disempurnakan dengan saus karamel di atasnya.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="button" id="snapBtn" class="btn btn-camera">Ambil Foto Sekarang</button>
-            <button type="button" id="retakeBtn" class="btn btn-camera" style="display:none; background-color: #c0392b;">Foto Ulang</button>
+
+            <!-- Kategori: Makanan Utama -->
+            <div class="menu-section" data-category="main">
+                <h2 class="section-title">Main Course</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Truffle Mushroom Pasta</span>
+                                <span class="item-price">Rp 75.000</span>
+                            </div>
+                            <div class="item-desc">Fettuccine dengan saus krim jamur truffle pilihan dan taburan keju parmesan.</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Aura Signature Steak</span>
+                                <span class="item-price">Rp 145.000</span>
+                            </div>
+                            <div class="item-desc">Daging sapi panggang premium disajikan bersama mashed potato dan saus l hitam.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Dessert -->
+            <div class="menu-section" data-category="dessert">
+                <h2 class="section-title">Dessert</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Classic Tiramisu</span>
+                                <span class="item-price">Rp 42.000</span>
+                            </div>
+                            <div class="item-desc">Kue tradisional Italia dengan lapisan mascarpone lembut dan aroma kopi yang khas.</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <div class="item-header">
+                                <span class="item-name">Matcha Lava Cake</span>
+                                <span class="item-price">Rp 40.000</span>
+                            </div>
+                            <div class="item-desc">Kue spons lembut dengan lelehan saus matcha hangat di bagian dalam.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
 
-        <button type="submit" class="btn">Kirim Absensi</button>
-        <div id="loading">Mengirim data dan foto ke Spreadsheet... Mohon tunggu.</div>
-    </form>
-</div>
+    <footer>
+        &copy; 2026 Aura Cafe & Restaurant. All Rights Reserved.
+    </footer>
 
-<script>
-    // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzx6CWY6ScmyyOGOUjtux5z---635CkDn5h0IpIYpSsfdqCWFTNUybtwcrCN22Iq-aK/exec';
+    <script>
+        function filterMenu(category) {
+            // Ubah status tombol aktif
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const photoResult = document.getElementById('photoResult');
-    const snapBtn = document.getElementById('snapBtn');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const waktuLive = document.getElementById('waktuLive');
-    
-    let base64Image = "";
-
-    // Jam Real-Time Berjalan
-    setInterval(() => {
-        const now = new Date();
-        waktuLive.innerText = now.toLocaleString('id-ID');
-    }, 1000);
-
-    // Aktifkan Kamera Langsung
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
-        .then(stream => { video.srcObject = stream; })
-        .catch(err => { alert("Gagal membuka kamera. Pastikan izin kamera aktif."); });
-
-    snapBtn.addEventListener('click', () => {
-        const context = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        base64Image = canvas.toDataURL('image/jpeg');
-        photoResult.src = base64Image;
-        photoResult.style.display = 'block';
-        video.style.display = 'none';
-        
-        snapBtn.style.display = 'none';
-        retakeBtn.style.display = 'block';
-        
-        let stream = video.srcObject;
-        if(stream) stream.getTracks().forEach(track => track.stop());
-    });
-
-    retakeBtn.addEventListener('click', () => {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
-            .then(stream => {
-                video.srcObject = stream;
-                video.style.display = 'block';
-                photoResult.style.display = 'none';
-                retakeBtn.style.display = 'none';
-                snapBtn.style.display = 'block';
-                base64Image = "";
+            // Tampilkan/Sembunyikan seksi menu berdasarkan kategori
+            const sections = document.querySelectorAll('.menu-section');
+            sections.forEach(section => {
+                if (category === 'all' || section.getAttribute('data-category') === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
             });
-    });
-
-    const form = document.getElementById('absensiForm');
-    const loading = document.getElementById('loading');
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-
-        if(!base64Image) {
-            alert("Harap ambil foto lewat kamera terlebih dahulu!");
-            return;
         }
-
-        loading.style.display = 'block';
-
-        const data = {
-            nama: document.getElementById('nama').value,
-            posisi: document.getElementById('posisi').value,
-            tipeAbsen: document.getElementById('tipeAbsen').value,
-            shift: document.getElementById('shift').value,
-            foto: base64Image
-        };
-
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        .then(() => {
-            loading.style.display = 'none';
-            alert("Absensi berhasil disimpan di kolom yang sesuai!");
-            form.reset();
-            location.reload();
-        })
-        .catch(error => {
-            loading.style.display = 'none';
-            alert("Terjadi kesalahan saat mengirim data.");
-            console.error('Error!', error.message);
-        });
-    });
-</script>
-
+    </script>
 </body>
 </html>
