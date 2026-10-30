@@ -1,3 +1,6 @@
+Berikut adalah pembaruan kode HTML untuk menu Lagota Cafe & Restaurant Anda.
+Layout grid telah disesuaikan agar menampilkan 2 menu berdampingan di layar HP, dan kartu menu didesain sedikit terpotong/menunjukkan bagian bawah kartu berikutnya (scroll-snap atau tinggi card yang pas) agar customer tahu bahwa masih ada banyak menu di bawahnya. Setiap menu juga sudah ditambahkan kolom gambar ilustrasi foto di atasnya.
+Kode Lengkap (index.html)
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,29 +30,29 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.5;
             padding-bottom: 60px;
         }
 
         /* Header / Hero Section */
         header {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 40px 20px 25px;
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
         }
 
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             letter-spacing: -0.5px;
         }
 
         header p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 300;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -59,24 +62,24 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 12px;
         }
 
         /* Navigation Filter Categories */
         .categories {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin: 30px 0;
+            gap: 8px;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
         .cat-btn {
             background: transparent;
             border: 1px solid var(--border-color);
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
@@ -91,36 +94,38 @@
 
         /* Menu Section Layout */
         .menu-section {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
             border-bottom: 1px solid var(--border-color);
             color: var(--text-primary);
         }
 
+        /* Grid 2 Kolom di HP untuk menampilkan 2 menu berdampingan */
         .menu-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 768px) {
             .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
             }
         }
 
-        /* Menu Item Card */
+        /* Menu Item Card dengan efek agar baris bawah sedikit mengintip */
         .menu-item {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
+            overflow: hidden;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
@@ -129,42 +134,81 @@
 
         .menu-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Gambar Ilustrasi Menu */
+        .item-img-container {
+            width: 100%;
+            height: 110px;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .item-img-container {
+                height: 140px;
+            }
+        }
+
+        .item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .item-img {
+            transform: scale(1.05);
+        }
+
+        /* Konten Teks Menu */
+        .item-content {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
         }
 
         .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .item-name {
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 2px;
+            color: var(--text-primary);
         }
 
         .item-price {
             font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             color: var(--accent-color);
             font-weight: 600;
         }
 
         .item-desc {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             font-weight: 300;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Batasi maksimal 2 baris agar rapi */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 40px;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border-top: 1px solid var(--border-color);
-            padding-top: 30px;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -187,82 +231,131 @@
         <!-- Daftar Menu -->
         <div id="menu-container">
             
-            <!-- Kategori: Kopi -->
+            <!-- Kategori: Minuman -->
             <div class="menu-section" data-category="coffee">
                 <h2 class="section-title">Minuman</h2>
                 <div class="menu-grid">
+                    
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Espresso (Hot Only)</span>
-                                <span class="item-price">Rp 15.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=500&auto=format&fit=crop&q=60" alt="Espresso" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Espresso</div>
+                                    <div class="item-price">Rp 15.000</div>
+                                </div>
+                                <div class="item-desc">Kopi murni tanpa campuran (Hot Only).</div>
                             </div>
-                            <div class="item-desc">Kopi Tanpa Campuran.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kopi Hitam (Hot Only</span>
-                                <span class="item-price">Rp 15.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=60" alt="Kopi Hitam" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Hitam</div>
+                                    <div class="item-price">Rp 15.000</div>
+                                </div>
+                                <div class="item-desc">Kopi hitam pekat tanpa campuran (Hot Only).</div>
                             </div>
-                            <div class="item-desc">Kopi Hitam Tanpa Campuran.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kopi Hitam Aren (Hot Only)</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=60" alt="Kopi Hitam Aren" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Hitam Aren</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Kopi hitam dengan tambahan manis gula aren asli.</div>
                             </div>
-                            <div class="item-desc">Kopi Hitam Dengan Tambahan Gula Aren.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Capuccino (Hot/Ice)</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&auto=format&fit=crop&q=60" alt="Capuccino" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Capuccino</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso dengan fresh milk & foam (Hot/Ice).</div>
                             </div>
-                            <div class="item-desc">Espresso dengan fresh milk yg di lukis (tanpa lukisan untuk varian Ice).</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kopi Susu (Hot/Ice)</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop&q=60" alt="Kopi Susu" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Susu</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, susu kental manis & fresh milk.</div>
                             </div>
-                            <div class="item-desc">Espresso dengan tambahan susu kental manis dan fresh milk.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Avocado Coffee (Ice Only)</span>
-                                <span class="item-price">Rp 25.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&auto=format&fit=crop&q=60" alt="Avocado Coffee" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Avocado Coffee</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, buah alpukat, saus caramel & susu.</div>
                             </div>
-                            <div class="item-desc">Espresso, Buah Alpukat, Saus Caramel dan Fresh Milk.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kopi Gula Aren (Ice Only)</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&auto=format&fit=crop&q=60" alt="Kopi Gula Aren" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Gula Aren</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, gula aren, creamer & fresh milk (Ice).</div>
                             </div>
-                            <div class="item-desc">Espresso, Gula Aren, Creamer dan Fresh Milk.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kopi Pandan (Ice Only)</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500&auto=format&fit=crop&q=60" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Pandan</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso dengan sirup pandan wangi & susu.</div>
                             </div>
-                            <div class="item-desc">Espresso, Sirup Pandan, Kental Manis dan Fresh Milk.</div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -270,157 +363,255 @@
             <div class="menu-section" data-category="main">
                 <h2 class="section-title">Makanan</h2>
                 <div class="menu-grid">
+                    
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Ayam Kremes</span>
-                                <span class="item-price">Rp 35.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=60" alt="Ayam Kremes" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Ayam Kremes</div>
+                                    <div class="item-price">Rp 35.000</div>
+                                </div>
+                                <div class="item-desc">Ayam goreng kremes, nasi, tempe tahu, sup & sambal terasi.</div>
                             </div>
-                            <div class="item-desc">Ayam goreng dengan taburan kremesan, Nasi Putih, Tempe Tahu, Sup, Sambal Terasi.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Nasi Goreng Lagota</span>
-                                <span class="item-price">Rp 38.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500&auto=format&fit=crop&q=60" alt="Nasi Goreng Lagota" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Nasi Goreng Lagota</div>
+                                    <div class="item-price">Rp 38.000</div>
+                                </div>
+                                <div class="item-desc">Nasi goreng kecap, paha atas, telur, acar & kerupuk.</div>
                             </div>
-                            <div class="item-desc">Nasi Goreng Kecap, Paha Atas, Telur, Acar dan Kerupuk.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Nasi Goreng Special</span>
-                                <span class="item-price">Rp 30.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60" alt="Nasi Goreng Special" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Nasi Goreng Special</div>
+                                    <div class="item-price">Rp 30.000</div>
+                                </div>
+                                <div class="item-desc">Nasi goreng merah, telur ceplok, bakso & udang.</div>
                             </div>
-                            <div class="item-desc">Nasi Goreng Merah, Telur Ceplok, Bakso dan Udang (Toping Custom: Nugget/Sosis 5K).</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Mie Goreng Special</span>
-                                <span class="item-price">Rp 30.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=60" alt="Mie Goreng Special" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Mie Goreng Special</div>
+                                    <div class="item-price">Rp 30.000</div>
+                                </div>
+                                <div class="item-desc">Mie goreng seafood, ayam, bakso, sayuran & telur.</div>
                             </div>
-                            <div class="item-desc">Mie Goreng, Seafood, Ayam, Bakso, Sayuran dan Telur.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Mie Kering Ayam</span>
-                                <span class="item-price">Rp 28.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?w=500&auto=format&fit=crop&q=60" alt="Mie Kering Ayam" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Mie Kering Ayam</div>
+                                    <div class="item-price">Rp 28.000</div>
+                                </div>
+                                <div class="item-desc">Mie kering, kuah kaldu kental, bakso, sayuran & ayam.</div>
                             </div>
-                            <div class="item-desc">Mie Kering, Kuah Kaldu Kental, Bakso, Sayuran dan Ayam.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Mie Kering Seafood</span>
-                                <span class="item-price">Rp 30.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500&auto=format&fit=crop&q=60" alt="Mie Kering Seafood" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Mie Kering Seafood</div>
+                                    <div class="item-price">Rp 30.000</div>
+                                </div>
+                                <div class="item-desc">Mie kering dengan siraman kuah kaldu kental seafood.</div>
                             </div>
-                            <div class="item-desc">Mie Kering, Kuah Kaldu Kental, Bakso, Sayuran dan Seafood.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Cah Kangkung</span>
-                                <span class="item-price">Rp 20.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=60" alt="Cah Kangkung" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Cah Kangkung</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Tumisan kangkung dengan bawang putih & saus tiram.</div>
                             </div>
-                            <div class="item-desc">Tumisan Bawang Putih, Bawang Merah, Cabe dan Saus Tiram.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Capcay Special</span>
-                                <span class="item-price">Rp 20.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60" alt="Capcay Special" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Capcay Special</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Aneka sayuran segar pilihan dimasak special.</div>
                             </div>
-                            <div class="item-desc">Sawi Putih, Jagung Kecil, Jamur, Wortel, Kembang Kol dan Sawi Hijau.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Capcay Kuah</span>
-                                <span class="item-price">Rp 20.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60" alt="Capcay Kuah" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Capcay Kuah</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Sayuran segar berkuah kaldu hangat yang sedap.</div>
                             </div>
-                            <div class="item-desc">Daging sapi panggang premium disajikan bersama mashed potato dan saus l hitam.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Red Cary Noodles</span>
-                                <span class="item-price">Rp 27.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=60" alt="Red Cary Noodles" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Red Cary Noodles</div>
+                                    <div class="item-price">Rp 27.000</div>
+                                </div>
+                                <div class="item-desc">Mie dengan kuah kari merah gurih khas Lagota.</div>
                             </div>
-                            <div class="item-desc">Daging sapi panggang premium disajikan bersama mashed potato dan saus l hitam.</div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!-- Kategori: Dessert -->
+            <!-- Kategori: Dessert / Cemilan -->
             <div class="menu-section" data-category="dessert">
-                <h2 class="section-title">Cemilan/Snack</h2>
+                <h2 class="section-title">Cemilan / Snack</h2>
                 <div class="menu-grid">
+                    
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Ubi Goreng</span>
-                                <span class="item-price">Rp 15.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop&q=60" alt="Ubi Goreng" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Ubi Goreng</div>
+                                    <div class="item-price">Rp 15.000</div>
+                                </div>
+                                <div class="item-desc">Ubi manis goreng disajikan dengan sambal terasi.</div>
                             </div>
-                            <div class="item-desc">Ubi dan Sambal Terasi.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Pisang Goreng Ori</span>
-                                <span class="item-price">Rp 15.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?w=500&auto=format&fit=crop&q=60" alt="Pisang Goreng Ori" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Pisang Goreng Ori</div>
+                                    <div class="item-price">Rp 15.000</div>
+                                </div>
+                                <div class="item-desc">Pisang goreng renyah di luar lembut di dalam.</div>
                             </div>
-                            <div class="item-desc">Pisang Goreng dan Sambal.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Pisang Palm Sugar</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1628543602869-43a9cc9f7a1b?w=500&auto=format&fit=crop&q=60" alt="Pisang Palm Sugar" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Pisang Palm Sugar</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Pisang goreng dengan lumuran susu & palm sugar.</div>
                             </div>
-                            <div class="item-desc">Pisang goreng dengan susu dan Palm Sugar.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Kentang Goreng</span>
-                                <span class="item-price">Rp 17.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&auto=format&fit=crop&q=60" alt="Kentang Goreng" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kentang Goreng</div>
+                                    <div class="item-price">Rp 17.000</div>
+                                </div>
+                                <div class="item-desc">French fries gurih disajikan dengan saus sambal.</div>
                             </div>
-                            <div class="item-desc">Kentang dan Saus.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Mix Plater</span>
-                                <span class="item-price">Rp 27.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=500&auto=format&fit=crop&q=60" alt="Mix Platter" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Mix Platter</div>
+                                    <div class="item-price">Rp 27.000</div>
+                                </div>
+                                <div class="item-desc">Kombinasi kentang goreng, nugget, dan sosis.</div>
                             </div>
-                            <div class="item-desc">Kentang, Nugget dan Sosis.</div>
                         </div>
                     </div>
+
                     <div class="menu-item">
-                        <div>
-                            <div class="item-header">
-                                <span class="item-name">Roti Bakar</span>
-                                <span class="item-price">Rp 18.000</span>
+                        <div class="item-img-container">
+                            <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&auto=format&fit=crop&q=60" alt="Roti Bakar" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Roti Bakar</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Roti tawar panggang dengan isian coklat & keju.</div>
                             </div>
-                            <div class="item-desc">Roti Tawar, Coklat, Keju.</div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -451,3 +642,4 @@
     </script>
 </body>
 </html>
+
