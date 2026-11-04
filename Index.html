@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lagota Cafe & Restaurant - Menu</title>
-    <!-- Google Fonts: Inter & Playfair Display -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,7 +11,7 @@
             --card-bg: #FFFFFF;
             --text-primary: #1A1A1A;
             --text-secondary: #666666;
-            --accent-color: #C5A059; /* Warm Gold / Bronze Accent */
+            --accent-color: #C5A059;
             --border-color: #EAEAEA;
             --transition: all 0.3s ease;
         }
@@ -32,7 +30,6 @@
             padding-bottom: 60px;
         }
 
-        /* Header / Hero Section */
         header {
             text-align: center;
             padding: 40px 20px 25px;
@@ -56,14 +53,12 @@
             text-transform: uppercase;
         }
 
-        /* Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 12px;
         }
 
-        /* Navigation Filter Categories */
         .categories {
             display: flex;
             justify-content: center;
@@ -90,7 +85,6 @@
             border-color: var(--text-primary);
         }
 
-        /* Menu Section Layout */
         .menu-section {
             margin-bottom: 30px;
         }
@@ -104,7 +98,6 @@
             color: var(--text-primary);
         }
 
-        /* Grid 2 Kolom di HP untuk menampilkan 2 menu berdampingan */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -118,7 +111,6 @@
             }
         }
 
-        /* Menu Item Card dengan efek agar baris bawah sedikit mengintip */
         .menu-item {
             background: var(--card-bg);
             border-radius: 10px;
@@ -135,13 +127,13 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
 
-        /* Gambar Ilustrasi Menu */
         .item-img-container {
             width: 100%;
             height: 110px;
             background-color: #f0f0f0;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
 
         @media (min-width: 768px) {
@@ -161,7 +153,6 @@
             transform: scale(1.05);
         }
 
-        /* Konten Teks Menu */
         .item-content {
             padding: 10px;
             display: flex;
@@ -194,12 +185,54 @@
             color: var(--text-secondary);
             font-weight: 300;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Batasi maksimal 2 baris agar rapi */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        /* Footer */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            animation: zoomIn 0.25s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -218,7 +251,6 @@
     </header>
 
     <div class="container">
-        <!-- Kategori Filter -->
         <div class="categories">
             <button class="cat-btn active" onclick="filterMenu('all')">Semua Menu</button>
             <button class="cat-btn" onclick="filterMenu('coffee')">Minuman</button>
@@ -226,17 +258,15 @@
             <button class="cat-btn" onclick="filterMenu('dessert')">Cemilan</button>
         </div>
 
-        <!-- Daftar Menu -->
         <div id="menu-container">
             
-            <!-- Kategori: Minuman -->
             <div class="menu-section" data-category="coffee">
                 <h2 class="section-title">Minuman</h2>
                 <div class="menu-grid">
                     
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=500&auto=format&fit=crop&q=60" alt="Espresso" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Espresso.jpeg" alt="Espresso" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -250,8 +280,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=60" alt="Kopi Hitam" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Hitam.jpeg" alt="Kopi Hitam" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -265,8 +295,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=60" alt="Kopi Hitam Aren" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Hitam_Aren.jpeg" alt="Kopi Hitam Aren" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -280,8 +310,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&auto=format&fit=crop&q=60" alt="Capuccino" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Cappucino.jpeg" alt="Capuccino" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -295,8 +325,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop&q=60" alt="Kopi Susu" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Susu.jpeg" alt="Kopi Susu" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -310,8 +340,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&auto=format&fit=crop&q=60" alt="Avocado Coffee" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Avocado_Coffe.jpeg" alt="Avocado Coffee" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -325,14 +355,14 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&auto=format&fit=crop&q=60" alt="Kopi Gula Aren" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Gula_Aren-Ice.jpeg" alt="Kopi Gula Aren" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
                                 <div class="item-header">
-                                    <div class="item-name">Kopi Gula Aren</div>
-                                    <div class="item-price">Rp 18.000</div>
+                                    <div class="item-name">Kopi Gula Aren Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
                                 </div>
                                 <div class="item-desc">Espresso, gula aren, creamer & fresh milk (Ice).</div>
                             </div>
@@ -340,16 +370,736 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500&auto=format&fit=crop&q=60" alt="Kopi Pandan" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Pandan-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
                                 <div class="item-header">
-                                    <div class="item-name">Kopi Pandan</div>
+                                    <div class="item-name">Kopi Pandan Ice</div>
+                                    <div class="item-price">Rp 23.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Sirup Pandan, Kental Manis, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Salted_Caramel-Ice.jpeg" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Salted Caramel Ice</div>
+                                    <div class="item-price">Rp 23.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Saus Caramel, FreshMilk, Salt & Ice Cream Vanila di Shake.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Caramel-Ice.jpeg" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Caramel Ice</div>
+                                    <div class="item-price">Rp 22.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Kopi_Pandan-Ice.jpeg" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Kopi Susu Ice</div>
                                     <div class="item-price">Rp 18.000</div>
                                 </div>
-                                <div class="item-desc">Espresso dengan sirup pandan wangi & susu.</div>
+                                <div class="item-desc">Espresso, Kental Manis, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="Image/Minuman/Cappucino-Ice.jpeg" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Cappucino Ice</div>
+                                    <div class="item-price">Rp .18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Fresh Milk yang di Steam.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Americano Ice</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Water.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Passion Americano Ice</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Sirup Markisa, Water.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Black Manggo Ice</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Sirup Mangga, Water.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Berrycano Ice</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Sirup Strawberry, Water.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Lecy Americano Ice</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">Espresso, Sirup Leci, Water.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Chocolate (Hot/Ice)</div>
+                                    <div class="item-price">Rp 23.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Red Velvet (Hot/Ice)</div>
+                                    <div class="item-price">Rp 22.000</div>
+                                </div>
+                                <div class="item-desc">Powder Red Velvet, Kental Manis, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Milo Dino (Hot/Ice)</div>
+                                    <div class="item-price">Rp 23.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Brown Sugar Regal (Hot/Ice)</div>
+                                    <div class="item-price">Rp 23.000</div>
+                                </div>
+                                <div class="item-desc">Biskuit Regal, Gula Aren, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Hot Lemongrass Tea</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Teh Panas, Sereh, Gula, Irisan Lemon.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Green Tea Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Ice Java Tea Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Teh, Sirup Vanila, Jelly.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Lecy Tea Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Thai Tea ice (Hot/Ice)</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Lemon Tea (Hot/Ice)</div>
+                                    <div class="item-price">Rp 18.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Es Doger</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Es Segar isian Cincau, Sari Kelapa, Tape Ubi, Sagu Mutiara, Kental Manis, Fresh Milk, DHT.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Es Cendol</div>
+                                    <div class="item-price">Rp 22.000</div>
+                                </div>
+                                <div class="item-desc">Cendol Asli, Gula Aren, Sirup Pandan, Kental Manis, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Es Kelapa Sirup/Aren</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Kelapa, Sirup DHT/Aren, Air Kelapa .</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Sop Buah</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Potongan Buah Naga, Apel, Melon, Semangka, Kental Manis, DHT.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Es Teler</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Potongan Buah Alpukat, Nangka, Kelapa, Kental Manis, Air Kelapa.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Markisalto Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Minuman Dasar Soda Perpaduan Sirup dan Saus Markisa, Perasan Lemon dan Jelly.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Sparkling Lemonade Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Minuman Soda, Campuran Sirup Lemon dan Garnis Lemon.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Purple Summer Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Base Soda Dari Paduan Sirup Strawberry, Perasan lemon dan Sirup Blue Lagon.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Lecy Mix Soda Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Minuman Soda, Campuran Sirup Leci dan Jelly.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Mango Float Ice</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Minuman Soda, Campuran Sirup Mangga Dengan Toping Ice Cream Vanilla.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Green Mojito</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">Minuman Soda Dengan Paduan Sirup Melon, Sirup Pandan, Perasan Lemon & Di Tambah Dengan Sirup Blue Lagon.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Melon</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Ice Jeruk</div>
+                                    <div class="item-price">Rp 15.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Naga</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Sirsak</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Ice Markisa</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Apel</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Mangga</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Alpukat</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Juice Buah Nangka</div>
+                                    <div class="item-price">Rp 20.000</div>
+                                </div>
+                                <div class="item-desc">.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Red Velvet Frappe</div>
+                                    <div class="item-price">Rp 27.000</div>
+                                </div>
+                                <div class="item-desc">Red Velvet, Fresh Milk & Oreo Crumb di Bland.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Cream Chocoberry</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Coklat, Saus Strawberry, Fresh Milk, Toping Whip Cream.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Strawberry Crumble</div>
+                                    <div class="item-price">Rp 27.000</div>
+                                </div>
+                                <div class="item-desc">Saus Strawberry, Biskuit Regal, Fresh Milk, Toping Thip Cream, Regal.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Chessy Caramel</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Wafer Chesse, Ice Cream Vanila, Saus Caramel, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">White Berry</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Sirup Saus & Ice Cream Strawberry, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Vanilla Regal</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Biskuit Regal, Ice Cream Vanilla, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Cookies & Cream</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Oreo Crumb, Sirup Vanilla, Fresh Milk.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">Coklat Sundae</div>
+                                    <div class="item-price">Rp 25.000</div>
+                                </div>
+                                <div class="item-desc">Coklat Powder, Saus Caramel, Fresh Milk, Toping Ice Cream Vanilla & Astor.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="Kopi Pandan" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name"></div>
+                                    <div class="item-price">Rp .000</div>
+                                </div>
+                                <div class="item-desc">.</div>
                             </div>
                         </div>
                     </div>
@@ -357,13 +1107,12 @@
                 </div>
             </div>
 
-            <!-- Kategori: Makanan Utama -->
             <div class="menu-section" data-category="main">
                 <h2 class="section-title">Makanan</h2>
                 <div class="menu-grid">
                     
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=60" alt="Ayam Kremes" class="item-img">
                         </div>
                         <div class="item-content">
@@ -378,7 +1127,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500&auto=format&fit=crop&q=60" alt="Nasi Goreng Lagota" class="item-img">
                         </div>
                         <div class="item-content">
@@ -393,7 +1142,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60" alt="Nasi Goreng Special" class="item-img">
                         </div>
                         <div class="item-content">
@@ -408,7 +1157,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=60" alt="Mie Goreng Special" class="item-img">
                         </div>
                         <div class="item-content">
@@ -423,7 +1172,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?w=500&auto=format&fit=crop&q=60" alt="Mie Kering Ayam" class="item-img">
                         </div>
                         <div class="item-content">
@@ -438,7 +1187,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500&auto=format&fit=crop&q=60" alt="Mie Kering Seafood" class="item-img">
                         </div>
                         <div class="item-content">
@@ -453,7 +1202,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=60" alt="Cah Kangkung" class="item-img">
                         </div>
                         <div class="item-content">
@@ -468,7 +1217,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60" alt="Capcay Special" class="item-img">
                         </div>
                         <div class="item-content">
@@ -483,7 +1232,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60" alt="Capcay Kuah" class="item-img">
                         </div>
                         <div class="item-content">
@@ -498,7 +1247,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=60" alt="Red Cary Noodles" class="item-img">
                         </div>
                         <div class="item-content">
@@ -515,13 +1264,12 @@
                 </div>
             </div>
 
-            <!-- Kategori: Dessert / Cemilan -->
             <div class="menu-section" data-category="dessert">
                 <h2 class="section-title">Cemilan / Snack</h2>
                 <div class="menu-grid">
                     
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop&q=60" alt="Ubi Goreng" class="item-img">
                         </div>
                         <div class="item-content">
@@ -536,7 +1284,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?w=500&auto=format&fit=crop&q=60" alt="Pisang Goreng Ori" class="item-img">
                         </div>
                         <div class="item-content">
@@ -551,7 +1299,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1628543602869-43a9cc9f7a1b?w=500&auto=format&fit=crop&q=60" alt="Pisang Palm Sugar" class="item-img">
                         </div>
                         <div class="item-content">
@@ -566,7 +1314,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&auto=format&fit=crop&q=60" alt="Kentang Goreng" class="item-img">
                         </div>
                         <div class="item-content">
@@ -581,8 +1329,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
-                            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=500&auto=format&fit=crop&q=60" alt="Mix Platter" class="item-img">
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=500&auto=format&fly&q=60" alt="Mix Platter" class="item-img">
                         </div>
                         <div class="item-content">
                             <div>
@@ -596,7 +1344,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <div class="item-img-container">
+                        <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&auto=format&fit=crop&q=60" alt="Roti Bakar" class="item-img">
                         </div>
                         <div class="item-content">
@@ -616,18 +1364,21 @@
         </div>
     </div>
 
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
     <footer>
         &copy; 2026 Lagota Cafe & Restaurant. All Rights Reserved.
     </footer>
 
     <script>
         function filterMenu(category) {
-            // Ubah status tombol aktif
             const buttons = document.querySelectorAll('.cat-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Tampilkan/Sembunyikan seksi menu berdasarkan kategori
             const sections = document.querySelectorAll('.menu-section');
             sections.forEach(section => {
                 if (category === 'all' || section.getAttribute('data-category') === category) {
@@ -637,7 +1388,20 @@
                 }
             });
         }
+
+        function openModal(element) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const img = element.querySelector("img");
+
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
     </script>
 </body>
 </html>
-
