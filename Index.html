@@ -144,11 +144,43 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
         }
 
         .menu-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Perbaikan CSS untuk Status Sold Out agar tidak kedip */
+        .menu-item[data-status="sold"] {
+            opacity: 0.6;
+        }
+
+        .menu-item[data-status="sold"] .item-img-container {
+            cursor: not-allowed;
+        }
+
+        .sold-out-badge {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .menu-item[data-status="sold"] .sold-out-badge {
+            display: flex;
         }
 
         .item-img-container {
@@ -175,6 +207,10 @@
 
         .menu-item:hover .item-img {
             transform: scale(1.05);
+        }
+
+        .menu-item[data-status="sold"]:hover .item-img {
+            transform: none;
         }
 
         .item-content {
@@ -293,7 +329,9 @@
                 <h2 class="section-title">Minuman</h2>
                 <div class="menu-grid">
                     
-                    <div class="menu-item">
+                    <!-- Contoh menu dengan status sold: tambahkan class data-status="sold" dan tag <div class="sold-out-badge">Sold Out</div> -->
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Espresso.jpeg" alt="Espresso" class="item-img">
                         </div>
@@ -308,7 +346,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Hitam.jpeg" alt="Kopi Hitam" class="item-img">
                         </div>
@@ -323,7 +362,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Hitam_Aren.jpeg" alt="Kopi Hitam Aren" class="item-img">
                         </div>
@@ -338,7 +378,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Cappucino.jpeg" alt="Capuccino" class="item-img">
                         </div>
@@ -353,7 +394,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Susu.jpeg" alt="Kopi Susu" class="item-img">
                         </div>
@@ -368,7 +410,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Avocado_Coffe.jpeg" alt="Avocado Coffee" class="item-img">
                         </div>
@@ -383,7 +426,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Gula_Aren-Ice.jpeg" alt="Kopi Gula Aren" class="item-img">
                         </div>
@@ -398,7 +442,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Pandan-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -413,7 +458,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Salted_Caramel-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -428,7 +474,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Caramel-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -443,7 +490,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Kopi_Susu-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -458,7 +506,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Cappucino-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -473,7 +522,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Americano-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -488,7 +538,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Passion_Americano-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -503,7 +554,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Black_Manggo-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -518,7 +570,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Berrycano-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -533,7 +586,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Lecy_Americano-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -548,7 +602,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Chocolate-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -563,7 +618,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/RedVelvet-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -578,7 +634,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Milo_Dino-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -593,7 +650,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Brown_Sugar_Regal-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -608,7 +666,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Hot_Lemon_Grasstea-Hot.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -623,7 +682,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Green_Tea-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -638,7 +698,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Ice_Java_Tea-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -653,7 +714,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Lecy_Tea-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -668,7 +730,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Thai_Tea-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -683,7 +746,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Lemon_Tea-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -698,7 +762,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Es_Doger.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -713,7 +778,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Es_Cendol.jpeg" class="item-img">
                         </div>
@@ -728,7 +794,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Es_Kelapa_Sirup.jpeg" class="item-img">
                         </div>
@@ -743,7 +810,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Sop_Buah.jpeg" class="item-img">
                         </div>
@@ -758,7 +826,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Es_Teler.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -773,7 +842,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Markisalto-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -788,7 +858,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Sparkling_Lemonade-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -803,7 +874,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Purple_Summer-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -818,7 +890,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Lecy_Mix_Soda-Ice.jpeg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -833,7 +906,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Mango_Float-Ice.jpg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -848,7 +922,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -863,7 +938,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Minuman/Jus_Melon-Ice.jpg" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -878,7 +954,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -893,7 +970,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -908,7 +986,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -923,7 +1002,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -938,7 +1018,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -953,7 +1034,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -968,7 +1050,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -983,7 +1066,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -998,7 +1082,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1013,7 +1098,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1028,7 +1114,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1043,7 +1130,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1058,7 +1146,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1073,7 +1162,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1088,7 +1178,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1103,7 +1194,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="Kopi Pandan" class="item-img">
                         </div>
@@ -1125,7 +1217,8 @@
                 <h2 class="section-title">Makanan</h2>
                 <div class="menu-grid">
                     
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Ayam_Kremes.jpg" alt="Ayam Kremes" class="item-img">
                         </div>
@@ -1140,7 +1233,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Ayam_Bakar.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1155,7 +1249,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Ayam_Geprek.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1170,7 +1265,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Nasi_Goreng_Lagota.jpg" alt="Nasi Goreng Lagota" class="item-img">
                         </div>
@@ -1185,7 +1281,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Nasi_Goreng_Spesial.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1200,7 +1297,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Nasi_Goreng_Ayam_Bistik.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1215,7 +1313,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Nasi_Goreng_Cumi_Hitam.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1230,7 +1329,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Mie_Goreng_Spesial.jpg" alt="Mie Goreng Special" class="item-img">
                         </div>
@@ -1245,7 +1345,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Mie_Kering_Ayam-Seafood.jpg" alt="Mie Kering Ayam" class="item-img">
                         </div>
@@ -1260,7 +1361,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Mie_Kuah_Ayam-Seafood.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1275,7 +1377,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Bihun_Goreng_Spesial.jpg" alt="Nasi Goreng Special" class="item-img">
                         </div>
@@ -1291,7 +1394,8 @@
                     </div>
 
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Cah_Kangkung.jpg" alt="Cah Kangkung" class="item-img">
                         </div>
@@ -1306,7 +1410,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Capcay_Kuah-Goreng.jpg" alt="Capcay Special" class="item-img">
                         </div>
@@ -1321,7 +1426,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Udang_Asam_Manis.jpg" alt="?" class="item-img">
                         </div>
@@ -1336,7 +1442,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Udang_Telur_Asin.jpg" alt="?" class="item-img">
                         </div>
@@ -1351,7 +1458,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Udang_Tepung.jpg" alt="?" class="item-img">
                         </div>
@@ -1366,7 +1474,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="?" class="item-img">
                         </div>
@@ -1381,7 +1490,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="?" class="item-img">
                         </div>
@@ -1396,7 +1506,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="" alt="?" class="item-img">
                         </div>
@@ -1411,6 +1522,22 @@
                         </div>
                     </div>
 
+                    <div class="menu-item" data-status="sold">
+                        <div class="sold-out-badge">Sold Out</div>
+                        <div class="item-img-container" onclick="openModal(this)">
+                            <img src="" alt="?" class="item-img">
+                        </div>
+                        <div class="item-content">
+                            <div>
+                                <div class="item-header">
+                                    <div class="item-name">?</div>
+                                    <div class="item-price">Rp ?.000</div>
+                                </div>
+                                <div class="item-desc">?.</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -1418,7 +1545,8 @@
                 <h2 class="section-title">Cemilan / Snack</h2>
                 <div class="menu-grid">
                     
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop&q=60" alt="Ubi Goreng" class="item-img">
                         </div>
@@ -1433,7 +1561,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?w=500&auto=format&fit=crop&q=60" alt="Pisang Goreng Ori" class="item-img">
                         </div>
@@ -1448,7 +1577,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1628543602869-43a9cc9f7a1b?w=500&auto=format&fit=crop&q=60" alt="Pisang Palm Sugar" class="item-img">
                         </div>
@@ -1463,7 +1593,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&auto=format&fit=crop&q=60" alt="Kentang Goreng" class="item-img">
                         </div>
@@ -1478,7 +1609,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=500&auto=format&fly&q=60" alt="Mix Platter" class="item-img">
                         </div>
@@ -1493,7 +1625,8 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item" data-status="available">
+                        <div class="sold-out-badge">Sold Out</div>
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&auto=format&fit=crop&q=60" alt="Roti Bakar" class="item-img">
                         </div>
@@ -1532,9 +1665,6 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Reset search input on category change (opsional, agar lebih bersih)
-            // document.getElementById('searchInput').value = '';
-
             applyFilters();
         }
 
@@ -1557,7 +1687,6 @@
                     const itemName = item.querySelector('.item-name').textContent.toLowerCase();
                     const itemDesc = item.querySelector('.item-desc').textContent.toLowerCase();
                     
-                    // Cek apakah cocok dengan kategori dan kata kunci pencarian
                     if (matchesCategory && (itemName.includes(query) || itemDesc.includes(query))) {
                         item.style.display = 'flex';
                         hasVisibleItems = true;
@@ -1566,7 +1695,6 @@
                     }
                 });
 
-                // Tampilkan atau sembunyikan seluruh section jika tidak ada menu yang cocok
                 if (matchesCategory && hasVisibleItems) {
                     section.style.display = 'block';
                 } else {
@@ -1576,6 +1704,11 @@
         }
 
         function openModal(element) {
+            const menuItem = element.closest('.menu-item');
+            if (menuItem && menuItem.getAttribute('data-status') === 'sold') {
+                return;
+            }
+
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImage");
             const img = element.querySelector("img");
