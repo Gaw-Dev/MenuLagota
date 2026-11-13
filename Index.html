@@ -59,11 +59,35 @@
             padding: 0 12px;
         }
 
+        .search-container {
+            margin: 20px 0 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(197, 160, 89, 0.2);
+        }
+
         .categories {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin: 20px 0;
+            margin: 15px 0 20px;
             flex-wrap: wrap;
         }
 
@@ -251,6 +275,11 @@
     </header>
 
     <div class="container">
+        <!-- Input Kotak Pencarian -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama menu, minuman, atau makanan..." onkeyup="searchMenu()">
+        </div>
+
         <div class="categories">
             <button class="cat-btn active" onclick="filterMenu('all')">Semua Menu</button>
             <button class="cat-btn" onclick="filterMenu('coffee')">Minuman</button>
@@ -1089,21 +1118,6 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
-                        <div class="item-img-container" onclick="openModal(this)">
-                            <img src="" alt="Kopi Pandan" class="item-img">
-                        </div>
-                        <div class="item-content">
-                            <div>
-                                <div class="item-header">
-                                    <div class="item-name"></div>
-                                    <div class="item-price">Rp .000</div>
-                                </div>
-                                <div class="item-desc">.</div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -1307,21 +1321,6 @@
                         </div>
                     </div>
 
-                    <!--<div class="menu-item"> 
-                        <div class="item-img-container" onclick="openModal(this)">
-                            <img src="" alt="Red Cary Noodles" class="item-img">
-                        </div>
-                        <div class="item-content">
-                            <div>
-                                <div class="item-header">
-                                    <div class="item-name">Red Cary Noodles</div>
-                                    <div class="item-price">Rp 27.000</div>
-                                </div>
-                                <div class="item-desc">Spageti kari merah gurih khas Lagota.</div>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <div class="menu-item">
                         <div class="item-img-container" onclick="openModal(this)">
                             <img src="Image/Makanan/Udang_Asam_Manis.jpg" alt="?" class="item-img">
@@ -1408,21 +1407,6 @@
                                     <div class="item-price">Rp 48.000</div>
                                 </div>
                                 <div class="item-desc">Cumi Tepung, Saus Asam Manis.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <div class="item-img-container" onclick="openModal(this)">
-                            <img src="" alt="?" class="item-img">
-                        </div>
-                        <div class="item-content">
-                            <div>
-                                <div class="item-header">
-                                    <div class="item-name">?</div>
-                                    <div class="item-price">Rp ??.000</div>
-                                </div>
-                                <div class="item-desc">???.</div>
                             </div>
                         </div>
                     </div>
@@ -1540,14 +1524,50 @@
     </footer>
 
     <script>
+        let currentCategory = 'all';
+
         function filterMenu(category) {
+            currentCategory = category;
             const buttons = document.querySelectorAll('.cat-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
+            // Reset search input on category change (opsional, agar lebih bersih)
+            // document.getElementById('searchInput').value = '';
+
+            applyFilters();
+        }
+
+        function searchMenu() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
             const sections = document.querySelectorAll('.menu-section');
+
             sections.forEach(section => {
-                if (category === 'all' || section.getAttribute('data-category') === category) {
+                const sectionCategory = section.getAttribute('data-category');
+                const matchesCategory = (currentCategory === 'all' || sectionCategory === currentCategory);
+                
+                let hasVisibleItems = false;
+                const items = section.querySelectorAll('.menu-item');
+
+                items.forEach(item => {
+                    const itemName = item.querySelector('.item-name').textContent.toLowerCase();
+                    const itemDesc = item.querySelector('.item-desc').textContent.toLowerCase();
+                    
+                    // Cek apakah cocok dengan kategori dan kata kunci pencarian
+                    if (matchesCategory && (itemName.includes(query) || itemDesc.includes(query))) {
+                        item.style.display = 'flex';
+                        hasVisibleItems = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Tampilkan atau sembunyikan seluruh section jika tidak ada menu yang cocok
+                if (matchesCategory && hasVisibleItems) {
                     section.style.display = 'block';
                 } else {
                     section.style.display = 'none';
@@ -1560,8 +1580,10 @@
             const modalImg = document.getElementById("modalImage");
             const img = element.querySelector("img");
 
-            modal.style.display = "flex";
-            modalImg.src = img.src;
+            if (img && img.src) {
+                modal.style.display = "flex";
+                modalImg.src = img.src;
+            }
         }
 
         function closeModal() {
